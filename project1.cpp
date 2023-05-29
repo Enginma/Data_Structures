@@ -143,8 +143,8 @@ int main() {
 // If 2 is entered nothing will happen as the no-op function. 
 
 
-    while (choice != '3') {
-        cout << "Enter your choice: ";
+    while (choice != 3) {
+        cout << "Enter your choice (1-3): ";
         cin >> choice;
 
 
