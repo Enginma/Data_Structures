@@ -130,12 +130,18 @@ int main() {
     string code;
     bool is_matching;
     int choice; 
+    int count;
+
+    string test1 = "(A+b)*(c/d)";
+    string test2 = "A(B+C)*2+[A]^2";
 
     cout << "Menu:" << endl;
     cout << "1. Check Parentheses" << endl;
     cout << "2. No operation" << endl;
     cout << "3. Quit" << endl;
-
+    cout << "Example tests: " << endl;
+    cout << "Test 1 ((A+b)*(c/d)): " << boolalpha << find_parenthesis(test1) << endl;
+    cout << "Test 2 (A(B+C)*2+[A]^2): " << boolalpha << find_parenthesis(test2) << endl;
 
 // Program will run until user enters 3
 // If 1 is entered, user will be prompted to enter a string it will be send to the find_parenthesis function and store its boolean
@@ -172,10 +178,12 @@ int main() {
 
                 is_matching = find_parenthesis(code);
                 if (is_matching) {
-                    cout << "True" << endl;
-                } else {
-                    cout << "False" << endl;
+                    cout << "true" << endl;
+                } 
+                else {
+                    cout << "false" << endl;
                 }
+                count++;
                 break;
 
 // The no-op function that just does nothing useful. 
@@ -187,7 +195,7 @@ int main() {
 // End the program. 
 
             case 3:
-                cout << "Bye" << endl;
+                cout << "Thanks for using our program! You have done " << count << " case(s)." << endl;
                 break;
 
 // The default message when user enters an integer that is not 1-3.
