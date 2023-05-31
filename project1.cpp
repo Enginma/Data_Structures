@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <chrono>
 using namespace std;
 
 
@@ -134,14 +135,33 @@ int main() {
 
     string test1 = "(A+b)*(c/d)";
     string test2 = "A(B+C)*2+[A]^2";
+    cout << "Example tests: " << endl;
+    cout << "Test 1 ((A+b)*(c/d)): ";
+    {
+        auto start = chrono::high_resolution_clock::now();
+        is_matching = find_parenthesis(test1);
+        auto end = chrono::high_resolution_clock::now();
+        auto duration = chrono::duration_cast<chrono::duration<double>>(end - start);
+        cout << boolalpha << is_matching << endl;
+        cout << "Execution time: " << duration.count() << " seconds." << endl;
+    }
 
+    
+    cout << "Test 2 (A(B+C)*2+[A]^2): ";
+    {
+        auto start = chrono::high_resolution_clock::now();
+        is_matching = find_parenthesis(test2);
+        auto end = chrono::high_resolution_clock::now();
+        auto duration = chrono::duration_cast<chrono::duration<double>>(end - start);
+        cout << boolalpha << is_matching << endl;
+        cout << "Execution time: " << duration.count() << " seconds." << endl;
+    }
+    cout << "------------------------------------------------------------" << endl;
     cout << "Menu:" << endl;
     cout << "1. Check Parentheses" << endl;
     cout << "2. No operation" << endl;
     cout << "3. Quit" << endl;
-    cout << "Example tests: " << endl;
-    cout << "Test 1 ((A+b)*(c/d)): " << boolalpha << find_parenthesis(test1) << endl;
-    cout << "Test 2 (A(B+C)*2+[A]^2): " << boolalpha << find_parenthesis(test2) << endl;
+
 
 // Program will run until user enters 3
 // If 1 is entered, user will be prompted to enter a string it will be send to the find_parenthesis function and store its boolean
@@ -176,6 +196,14 @@ int main() {
                 cin.ignore();
                 getline(cin, code);
 
+                {
+                    auto start = chrono::high_resolution_clock::now();
+                    is_matching = find_parenthesis(code);
+                    auto end = chrono::high_resolution_clock::now();
+                    auto duration = chrono::duration_cast<chrono::duration<double>>(end - start);
+                    cout << "Execution time: " << duration.count() << " seconds." << endl;
+                }
+
                 is_matching = find_parenthesis(code);
                 if (is_matching) {
                     cout << "true" << endl;
@@ -189,7 +217,13 @@ int main() {
 // The no-op function that just does nothing useful. 
 
             case 2:
-                user_stack.no_op();
+                {
+                    auto start = chrono::high_resolution_clock::now();
+                    user_stack.no_op();
+                    auto end = chrono::high_resolution_clock::now();
+                    auto duration = chrono::duration_cast<chrono::duration<double>>(end - start);
+                    cout << "Execution time: " << duration.count() << " seconds." << endl;
+                }
                 break;
 
 // End the program. 
