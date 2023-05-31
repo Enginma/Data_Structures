@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <chrono>
+#include <stack>
 using namespace std;
 
 
@@ -118,6 +119,31 @@ bool find_parenthesis(string a) {
 }
 
 
+bool find_parenthesis_builtin(string a) {
+    stack<char> storing_stack;
+
+    for (char c : a) {
+        if (c == '(' || c == '{' || c == '[' || c == '<') {
+            storing_stack.push(c);
+        } 
+        else if (c == ')' || c == '}' || c == ']' || c == '>') {
+            if (storing_stack.empty()) {
+                return false;
+            }
+
+            char top = storing_stack.top();
+            if ((c == ')' && top == '(') || (c == '}' && top == '{') || (c == ']' && top == '[') || (c == '>' && top == '<')) {
+                storing_stack.pop();
+            } 
+            else {
+                return false;
+            }
+        }
+    }
+
+    return storing_stack.empty();
+}
+
 
 /*
 Main function contains one stack-class variable called user_stack to access the no-op Stack function above.
@@ -133,9 +159,12 @@ int main() {
     int choice; 
     int count;
 
+// The first set of chrono instructions display the speed of the program I made, the second set displays the speed of built in stack. 
+
     string test1 = "(A+b)*(c/d)";
     string test2 = "A(B+C)*2+[A]^2";
     cout << "Example tests: " << endl;
+    cout << "------------------------------------------------------------" << endl;
     cout << "Test 1 ((A+b)*(c/d)): ";
     {
         auto start = chrono::high_resolution_clock::now();
@@ -146,7 +175,19 @@ int main() {
         cout << "Execution time: " << duration.count() << " seconds." << endl;
     }
 
+    cout << "------------------------------------------------------------" << endl;
+    cout << "Test 1 ((A+b)*(c/d)): ";
+    {
+        auto start = chrono::high_resolution_clock::now();
+        bool is_matching = find_parenthesis_builtin(test1);
+        auto end = chrono::high_resolution_clock::now();
+        auto duration = chrono::duration_cast<chrono::duration<double>>(end - start);
+        cout << boolalpha << is_matching << endl;
+        cout << "Execution time (builtin stack): " << duration.count() << " seconds." << endl;
+    }
     
+
+    cout << "------------------------------------------------------------" << endl;
     cout << "Test 2 (A(B+C)*2+[A]^2): ";
     {
         auto start = chrono::high_resolution_clock::now();
@@ -156,11 +197,23 @@ int main() {
         cout << boolalpha << is_matching << endl;
         cout << "Execution time: " << duration.count() << " seconds." << endl;
     }
+
+    cout << "------------------------------------------------------------" << endl;
+    cout << "Test 2 (A(B+C)*2+[A]^2): ";
+    {
+        auto start = chrono::high_resolution_clock::now();
+        bool is_matching = find_parenthesis_builtin(test2);
+        auto end = chrono::high_resolution_clock::now();
+        auto duration = chrono::duration_cast<chrono::duration<double>>(end - start);
+        cout << boolalpha << is_matching << endl;
+        cout << "Execution time (builtin stack): " << duration.count() << " seconds." << endl;
+    }
     cout << "------------------------------------------------------------" << endl;
     cout << "Menu:" << endl;
     cout << "1. Check Parentheses" << endl;
     cout << "2. No operation" << endl;
     cout << "3. Quit" << endl;
+
 
 
 // Program will run until user enters 3
@@ -202,6 +255,15 @@ int main() {
                     auto end = chrono::high_resolution_clock::now();
                     auto duration = chrono::duration_cast<chrono::duration<double>>(end - start);
                     cout << "Execution time: " << duration.count() << " seconds." << endl;
+                }
+
+
+                {
+                    auto start = chrono::high_resolution_clock::now();
+                    bool is_matching = find_parenthesis_builtin(code);
+                    auto end = chrono::high_resolution_clock::now();
+                    auto duration = chrono::duration_cast<chrono::duration<double>>(end - start);
+                    cout << "Execution time (builtin stack): " << duration.count() << " seconds." << endl;
                 }
 
                 is_matching = find_parenthesis(code);
