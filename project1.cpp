@@ -1,3 +1,7 @@
+// Xianqi Cao U83561269
+// Matthew Keen U44822882
+
+
 #include <iostream>
 #include <string>
 #include <chrono>
@@ -119,6 +123,8 @@ bool find_parenthesis(string a) {
 }
 
 
+
+// C++ Built in Stack functions
 bool find_parenthesis_builtin(string a) {
     stack<char> storing_stack;
 
