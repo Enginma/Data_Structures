@@ -325,6 +325,11 @@ int main() {
         std::chrono::duration<double> duration = end_time - start_time;
         std::cout << "C++ size operation took: " << duration.count() << " seconds." << std::endl;
     }
+
+    std::cout << "------------------------------------------------------------" << std::endl;
+    std::cout << "Is queue empty: ";
+    std::cout << std::boolalpha << queue2.empty() << std::endl;
+
     return 0;
 }
 
