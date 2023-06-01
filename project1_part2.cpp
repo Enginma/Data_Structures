@@ -206,9 +206,11 @@ int main() {
     queue.enqueue(8);
     queue.enqueue(4);
     queue.enqueue(2);
+    std::cout << "------------------------------------------------------------" << std::endl;
 
     {
         auto start_time = std::chrono::high_resolution_clock::now();
+        std::cout << "The front is ";
         std::cout << queue.front() << std::endl;
         auto end_time = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double> duration = end_time - start_time;
@@ -223,6 +225,7 @@ int main() {
 
     {
         auto start_time = std::chrono::high_resolution_clock::now();
+        std::cout << "The front is ";
         std::cout << queue2.front() << std::endl;
         auto end_time = std::chrono::high_resolution_clock::now();  
         std::chrono::duration<double> duration = end_time - start_time;
@@ -269,6 +272,7 @@ int main() {
 
     {
         auto start_time = std::chrono::high_resolution_clock::now();
+        std::cout << "The back is ";
         std::cout << queue.back() << std::endl;
         auto end_time = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double> duration = end_time - start_time;
@@ -277,6 +281,7 @@ int main() {
 
     {
         auto start_time = std::chrono::high_resolution_clock::now();
+        std::cout << "The back is ";
         std::cout << queue2.back() << std::endl;
         auto end_time = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double> duration = end_time - start_time;
@@ -288,6 +293,7 @@ int main() {
 
     {
         auto start_time = std::chrono::high_resolution_clock::now();
+        std::cout << "Is queue empty: ";
         std::cout << std::boolalpha << queue.empty() << std::endl;
         auto end_time = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double> duration = end_time - start_time;
@@ -296,6 +302,7 @@ int main() {
 
     {
         auto start_time = std::chrono::high_resolution_clock::now();
+        std::cout << "Is queue empty: ";
         std::cout << std::boolalpha << queue2.empty() << std::endl;
         auto end_time = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double> duration = end_time - start_time;
