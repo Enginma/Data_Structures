@@ -216,7 +216,6 @@ int main() {
 
     {
         auto start_time = std::chrono::high_resolution_clock::now();
-        std::cout << "The enqueue is ";
         queue.enqueue(2);
         auto end_time = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double> duration = end_time - start_time;
@@ -225,7 +224,6 @@ int main() {
 
     {
         auto start_time = std::chrono::high_resolution_clock::now();
-        std::cout << "The enqueue is ";
         queue2.enqueue(2);
         auto end_time = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double> duration = end_time - start_time;
