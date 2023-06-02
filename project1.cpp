@@ -1,5 +1,5 @@
-// Xianqi Cao U83561269
-// Matthew Keen U44822882
+// Xianqi Cao U83561269 -- Code
+// Matthew Keen U44822882 -- Report
 
 
 #include <iostream>

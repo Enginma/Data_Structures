@@ -1,5 +1,5 @@
-// Xianqi Cao U83561269
-// Matthew Keen U44822882
+// Xianqi Cao U83561269 -- Code
+// Matthew Keen U44822882 -- Report
 
 
 
@@ -205,7 +205,35 @@ int main() {
     queue.enqueue(5);
     queue.enqueue(8);
     queue.enqueue(4);
-    queue.enqueue(2);
+
+    builtin_queue queue2;
+    queue2.enqueue(5);
+    queue2.enqueue(8);
+    queue2.enqueue(4);
+
+
+    std::cout << "------------------------------------------------------------" << std::endl;
+
+    {
+        auto start_time = std::chrono::high_resolution_clock::now();
+        std::cout << "The enqueue is ";
+        queue.enqueue(2);
+        auto end_time = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> duration = end_time - start_time;
+        std::cout << "Our enqueue operation took: " << duration.count() << " seconds." << std::endl;
+    }
+
+    {
+        auto start_time = std::chrono::high_resolution_clock::now();
+        std::cout << "The enqueue is ";
+        queue2.enqueue(2);
+        auto end_time = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double> duration = end_time - start_time;
+        std::cout << "C++ enqueue operation took: " << duration.count() << " seconds." << std::endl;
+    }
+
+
+
     std::cout << "------------------------------------------------------------" << std::endl;
 
     {
@@ -217,12 +245,6 @@ int main() {
         std::cout << "Our front operation took: " << duration.count() << " seconds." << std::endl;
     }
 
-    builtin_queue queue2;
-    queue2.enqueue(5);
-    queue2.enqueue(8);
-    queue2.enqueue(4);
-    queue2.enqueue(2);
-
     {
         auto start_time = std::chrono::high_resolution_clock::now();
         std::cout << "The front is ";
@@ -231,6 +253,7 @@ int main() {
         std::chrono::duration<double> duration = end_time - start_time;
         std::cout << "C++ front operation took: " << duration.count() << " seconds." << std::endl;
     }
+
     std::cout << "------------------------------------------------------------" << std::endl;
 
     {
