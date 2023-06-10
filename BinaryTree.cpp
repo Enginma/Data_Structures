@@ -420,8 +420,8 @@ int BinaryTree<T>::height(BTNode<T>* node) const {
   if (node == nullptr) {
     return 0;
   }
-  int leftHeight = height(node->left);
-  int rightHeight = height(node->right);
+  int left_height = height(node->left);
+  int right_height = height(node->right);
   return 1 + max(leftHeight, rightHeight);
 }
 
