@@ -39,6 +39,9 @@ int main() {
     for (int k = 1; k <= 256; k++)
         elements[k] = k;
 
+
+
+
     // Construct a PDF object to write the tree output
     PDF *pdf = new PDF("trees.pdf");
     
@@ -47,6 +50,7 @@ int main() {
     // Create a new binary tree, having 'n' elements
     int n = 12;  // <-- try changing the value of 'n'
     BinaryTree<int> tree(elements, n);
+
 
 // These three lines below draws the tree. 
     ostringstream ostring;
@@ -119,6 +123,7 @@ int main() {
             tree.preorder(func2);
             cout << endl;
 
+
             ostringstream ostring;
             ostring << "Complete tree having " << n << " nodes (Preorder)";
             tree.display(pdf, ostring.str());
@@ -144,6 +149,10 @@ int main() {
             cout << "Postorder Traversal: ";
             tree.postorder(func2);
             cout << endl;
+
+            ostringstream ostring;
+            ostring << "Complete tree having " << n << " nodes (postorder)";
+            tree.display(pdf, ostring.str());
         } 
 
 // Program ends if user press 6. 

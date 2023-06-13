@@ -166,6 +166,8 @@ void BinaryTree<T>::preorder( void (*f)(const T&), BTNode<T> *node ) const
 
 
 
+
+
 /************************/
 /* Conversion to Arrays */
 /************************/
@@ -324,6 +326,9 @@ void BinaryTree<T>::display( PDF *pdf, BTNode<T> *node, int leaf_dist,
 		scale*node_box_margin, scale*node_box_r,
 		0, scale*font_scale);  
 }
+
+
+
 
 
 // This checks if the tree is empty. It takes in a node and if it is null it will return True. 
@@ -673,3 +678,6 @@ void BinaryTree<T>::delete_last_node(BTNode<T>* root, BTNode<T>* deleting_node) 
         }
     }
 }
+
+
+

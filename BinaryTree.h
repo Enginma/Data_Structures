@@ -106,6 +106,14 @@ class BinaryTree {
   BTNode<T>* get_root() const;
   bool compare(BTNode<T>* node1, BTNode<T>* node2) const;
 
+
+  void preorder( void (*f)(const T&), BTNode<T> *node ) const;
+  void inorder( void (*f)(const T&), BTNode<T> *node ) const;
+  void postorder( void (*f)(const T&), BTNode<T> *node ) const;
+
+
+
+
  protected:
   BTNode<T> *root;  // Root node (NULL if the tree is empty)
 
@@ -118,9 +126,7 @@ class BinaryTree {
   int leaf_count( BTNode<T>* node ) const;
   bool is_empty( BTNode<T> *node ) const; 
 
-  void preorder( void (*f)(const T&), BTNode<T> *node ) const;
-  void inorder( void (*f)(const T&), BTNode<T> *node ) const;
-  void postorder( void (*f)(const T&), BTNode<T> *node ) const;
+
 
   void empty( BTNode<T>* node );
 
