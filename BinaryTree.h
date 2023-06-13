@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <sstream>
-
+#include <queue>
 #include "PDF.h" // for the PDF display
 
 using namespace std;
@@ -99,6 +99,12 @@ class BinaryTree {
   /* Display */ 
   void display( PDF* pdf, const string& annotation = "" ) const;  // 1
 
+// Functions I added to help code function
+  void insert_node(const T& element);
+  void delete_last_node (struct BTNode<T>* root, struct BTNode<T>* deleting_node);
+  BTNode<T>* delete_node(struct BTNode<T>* root, int key);
+  BTNode<T>* get_root() const;
+  bool compare(BTNode<T>* node1, BTNode<T>* node2) const;
 
  protected:
   BTNode<T> *root;  // Root node (NULL if the tree is empty)
@@ -127,7 +133,12 @@ class BinaryTree {
   template<class S>
   friend ostream& operator<<( ostream& out, const BTNode<S>& src );
 
-  bool compare(BTNode<T>* node1, BTNode<T>* node2) const;
+
+
+// Insert and delete function declarations. 
+
+
+
 
 }; 
 

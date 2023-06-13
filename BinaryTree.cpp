@@ -80,7 +80,7 @@ using namespace std;
 
 template<class T>
 BinaryTree<T>::BinaryTree(const BinaryTree& src) {
-
+  root = clone(src.root);
 }
 
 
@@ -149,6 +149,9 @@ int BinaryTree<T>::node_count( BTNode<T> *node ) const
 /*************/
 /* Traversal */
 /*************/
+
+
+// The preorder function shows preorder traversal.
 
 template<class T>
 void BinaryTree<T>::preorder( void (*f)(const T&), BTNode<T> *node ) const
@@ -422,19 +425,30 @@ int BinaryTree<T>::height(BTNode<T>* node) const {
   }
   int left_height = height(node->left);
   int right_height = height(node->right);
-  return 1 + max(leftHeight, rightHeight);
+  return 1 + max(left_height, right_height);
 }
 
 
-// This is created to match the header file's void empty function so the code compiles, i don't think it is involved in assignment 2. 
+template <class T>
+BTNode<T>* BinaryTree<T>::get_root() const {
+    return root;
+}
+
+
+
+// This is created to match the header file's void empty function so the code compiles, it is not used in the main.cc or anywhere,
+// but it is implemented to clear off everynode from a tree.  
 
 
 template <class T>
 void BinaryTree<T>::empty( BTNode<T>* node ){
-
-
-
-  return;
+  if (node == nullptr) {
+    return;
+  }
+  empty(node->left);
+  empty(node->right);
+  delete node;
+  node = nullptr;
 }
 
 
@@ -468,4 +482,194 @@ void BinaryTree<T>::inorder(void (*func)(const T&), BTNode<T>* node) const {
     inorder(func, node->left);
     func(node->elem);
     inorder(func, node->right);
+}
+
+
+
+
+
+// Inserting node function
+
+
+// This function first creates a new node with the given element.
+
+template<class T>
+void BinaryTree<T>::insert_node(const T& element) {
+    BTNode<T>* new_node = new BTNode<T>(element);
+
+
+// If the tree is empty meaning root is nullptr, the new node will be the root. 
+
+    if (root == nullptr) {
+        root = new_node;
+        return;
+    }
+
+
+// We use a queue to insert the node to its correct position to maintain a complete tree. We create a queue using the 
+// queue library in C++ and we first push the root node to the beginning. 
+
+    queue<BTNode<T>*> queue;
+    queue.push(root);
+
+
+ // While the queue is not empty, we create a new node variable called current and we make it equal to the first element of the
+ // queue, then we remove that element with the pop function.    
+
+    while (!queue.empty()) {
+        BTNode<T>* current = queue.front();
+        queue.pop();
+
+// First, we check the node if it has a left child and if it doesn't then the node will be inserted there. 
+
+        if (current->left == nullptr) {
+            current->left = new_node;
+            return;
+        }
+
+// If it already have a left child then we push this node to the queue, this is useful when we want to insert more nodes in the future. 
+
+        else {
+            queue.push(current->left);
+        }
+
+// Then we check the right child to see if there is anything there, if there is not then we insert the new node there.  
+
+        if (current->right == nullptr) {
+            current->right = new_node;
+            return;
+        }
+
+// Otherwise we push the right child to the stack for future uses. 
+        else {
+            queue.push(current->right);
+        }
+    }
+}
+
+// Since it is a while loop, the left child of the root will become the current and it will run until it finds a place where
+// it can be inserted from left to right to make sure the tree is complete. 
+
+
+
+
+// The delete node function that takes the root and the value that we want to delete called key as parameters. 
+// We first check if there is nothing to delete, and if there is only one root node in the tree. 
+
+
+template <class T>
+BTNode<T>* BinaryTree<T>::delete_node(struct BTNode<T>* root, int key){
+  if (root == nullptr)
+    return nullptr;
+
+  if (root->left == nullptr && root->right == nullptr){
+    if (root->elem == key){
+      return nullptr;
+    }
+    else {
+      return root;
+    }
+  }
+
+// We create a queue called nodes again and we push the root in there as well as two node variables for later computations. 
+
+  queue<struct BTNode<T>*> nodes;
+  nodes.push(root);
+  struct BTNode<T>* tmp;
+  struct BTNode<T>* target_node = nullptr;
+
+// While the queue is not empty, we make tmp equal to the first queue element and we pop the element from the queue. 
+// We then hunt for the value that we want to delete and once we find it target_node will be equal to tmp making it the node we want 
+// to delete. 
+
+// Tmp will be the last variable in our tree at the end of the while loop. 
+
+  while (!nodes.empty()) {
+    tmp = nodes.front();
+    nodes.pop();
+    if (tmp->elem == key){
+      target_node = tmp;
+    }
+
+    if (tmp->left){
+      nodes.push(tmp->left);
+    }
+
+    if (tmp->right){
+      nodes.push(tmp->right);
+    }
+  }
+
+
+// As long as we found the target node, in other words it is not nullptr, we make a new int variable called last_node to inherit 
+// the tmp's value. We then just straight up delete the last node with the delete_last_node function declared below, then we replace
+// the value of the node we wanted to delete with the last node. 
+// We basically swapped the last node with the node we want to be deleted, and then deleted it. 
+
+    if (target_node != nullptr) {
+      int last_node = tmp->elem;
+      delete_last_node(root, tmp);
+      target_node->elem = last_node;
+    }
+
+  return root;
+
+}
+
+
+// Deleting function that delete the last node of the tree takes the root as one parameter 
+// and the value that we want to delete as another. 
+
+// This function will run until it finds the node it want to be deleted and then it will return and end. 
+
+template <class T>
+void BinaryTree<T>::delete_last_node(BTNode<T>* root, BTNode<T>* deleting_node) {
+
+
+// We first create a queue called nodes and we push the root to the queue. We also make a tmp variable for later computations. 
+
+    queue<BTNode<T>*> nodes;
+    nodes.push(root);
+    BTNode<T>* tmp;
+
+
+// While the queue is not empty, we set tmp to the root node and pop the node from our queue. We first check if the variable is
+// the note we want to delete, if it is we simply delete it. 
+
+    while (!nodes.empty()) {
+        tmp = nodes.front();
+        nodes.pop();
+
+        if (tmp == deleting_node) {
+            delete deleting_node;  
+            return;
+        }
+
+// Then we check from the right first to see if it is the value we want, if it is not we push it to the queue. 
+
+        if (tmp->right) {
+            if (tmp->right == deleting_node) {
+                tmp->right = nullptr;
+                delete deleting_node;  
+                return;
+            } 
+
+            else {
+                nodes.push(tmp->right);
+            }
+        }
+
+// Checking the leftside the same way we did for right, if it is not wwse push it into the queue. 
+        if (tmp->left) {
+            if (tmp->left == deleting_node) {
+                tmp->left = nullptr;
+                delete deleting_node;  
+                return;
+            } 
+
+            else {
+                nodes.push(tmp->left);
+            }
+        }
+    }
 }

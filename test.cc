@@ -34,7 +34,7 @@ int complete_tree_height( int n )
 /* Main */
 /********/
 
-int main( int argc, char *argv[] )
+void main2( int argc, char *argv[] )
 {
   // Set up an array of integers, to serve as node elements
   int max_nodes = 255;
@@ -48,6 +48,7 @@ int main( int argc, char *argv[] )
   // Create a new binary tree, having 'n' elements
   int n = 12;  // <-- try changing the value of 'n'
   BinaryTree<int> tree(elements, n);
+
 
   // Output the tree
   cout << "tree output via << operator:\n" << tree << "\n";
@@ -120,6 +121,7 @@ int main( int argc, char *argv[] )
       cerr << "to_flat_array() element mismatch\n";
   }
 
+
   // Check the traversals
   cout << "Preorder traversal:\n";
   tree.preorder(func);
@@ -133,9 +135,12 @@ int main( int argc, char *argv[] )
   tree.postorder(func);
   cout << "\n";
 
+  
+
   // Finish the PDF object
   pdf->finish();
   delete pdf;
+
 }
 
 
