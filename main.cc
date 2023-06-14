@@ -88,6 +88,7 @@ int main() {
             cout << "Invalid input. Please enter 1-6 as choice." << endl;
             break;
         }
+        int index = 1;
 
 // If the choice is equal to 1, we ask the user for a value to insert to the tree and we implement n by 1 for the pdf file's
 // message and we display a new tree on the pdf file. 
