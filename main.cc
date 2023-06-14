@@ -1,3 +1,6 @@
+// Xianqi Cao U83561269 -- Code
+// Matthew Keen U44822882 -- Report
+
 #include "BinaryTree.h"
 #include <iostream>
 
@@ -6,10 +9,12 @@ using namespace std;
 // These two functions I grabbed from test.cc to help test the program. 
 
 
-void func2( const int& src )
+void func2( const int& src, int arr[], int &index)
   // A test function for the function-based 
 {
   cout << src << " ";
+  arr[index] = src;
+  ++index;
 }
 
 
@@ -39,8 +44,10 @@ int main() {
     for (int k = 1; k <= 256; k++)
         elements[k] = k;
 
+    int array[500];
+    int index = 1;
 
-
+    BinaryTree<int> tmp;
 
     // Construct a PDF object to write the tree output
     PDF *pdf = new PDF("trees.pdf");
@@ -89,7 +96,7 @@ int main() {
             cout << "Enter the value to insert: ";
             cin >> value;
             tree.insert_node(value);
-            cout << "Node inserted!." << endl;
+            cout << "Node inserted!" << endl;
 
 
             n++;
@@ -107,12 +114,23 @@ int main() {
             cout << "Enter the value to delete: ";
             cin >> value;
             tree.delete_node(tree.get_root(), value);
-            cout << "Node deleted!" << endl;
+
 
             n--;
+            if (n < 0){
+
+            cout << "Nothing to delete!" << endl;
+            n = 0;
+            }
+
+            else if (n >= 0) { 
+            cout << "Node deleted!" << endl;
+            }
+            
             ostringstream ostring;
             ostring << "Complete tree having " << n << " nodes (Delete)";
             tree.display(pdf, ostring.str());
+
         } 
 
 // If the user press 3 we will be displaying in the terminal of the preorder traversal. A new tree will be drawn as well but it will
@@ -120,13 +138,14 @@ int main() {
 
         else if (choice == 3) {
             cout << "Preorder Traversal: ";
-            tree.preorder(func2);
+            tree.preorder(func2, array, index);
+            tmp = BinaryTree<int>(array, tree.node_count());
             cout << endl;
-
+            
 
             ostringstream ostring;
-            ostring << "Complete tree having " << n << " nodes (Preorder)";
-            tree.display(pdf, ostring.str());
+            ostring << "Complete tree with preorder traversal. " << endl ;
+            tmp.display(pdf, ostring.str());
         } 
 
 // If the user press 4 we will be displaying in the terminal of the inorder traversal. A new tree will be drawn as well but it will
@@ -134,12 +153,13 @@ int main() {
 
         else if (choice == 4) {
             cout << "Inorder Traversal: ";
-            tree.inorder(func2);
+            tree.inorder(func2, array, index);
+            tmp = BinaryTree<int>(array, tree.node_count());
             cout << endl;
 
             ostringstream ostring;
-            ostring << "Complete tree having " << n << " nodes (inorder)";
-            tree.display(pdf, ostring.str());
+            ostring << "Complete tree with inorder traversal. " << endl;
+            tmp.display(pdf, ostring.str());
         } 
 
 // If the user press 5 we will be displaying in the terminal of the postorder traversal. A new tree will be drawn as well but it will
@@ -147,12 +167,13 @@ int main() {
 
         else if (choice == 5) {
             cout << "Postorder Traversal: ";
-            tree.postorder(func2);
+            tree.postorder(func2, array, index);
+            tmp = BinaryTree<int>(array, tree.node_count());
             cout << endl;
 
             ostringstream ostring;
-            ostring << "Complete tree having " << n << " nodes (postorder)";
-            tree.display(pdf, ostring.str());
+            ostring << "Complete  tree with postorder traversal. " << endl;
+            tmp.display(pdf, ostring.str());
         } 
 
 // Program ends if user press 6. 
@@ -170,6 +191,8 @@ int main() {
     }
 
 // Finish the pdf file.
+
+
 
     pdf->finish();
     delete pdf;

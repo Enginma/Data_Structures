@@ -1,3 +1,6 @@
+// Xianqi Cao U83561269 -- Code
+// Matthew Keen U44822882 -- Report
+
 using namespace std;
 
 
@@ -154,13 +157,13 @@ int BinaryTree<T>::node_count( BTNode<T> *node ) const
 // The preorder function shows preorder traversal.
 
 template<class T>
-void BinaryTree<T>::preorder( void (*f)(const T&), BTNode<T> *node ) const
+void BinaryTree<T>::preorder( void (*f)(const T&, T*, T&), BTNode<T> *node, T arr[], T &index )
 {
   if (!node)
     return;
-  f(node->elem);
-  preorder(f, node->left);
-  preorder(f, node->right);
+  f(node->elem, arr, index);
+  preorder(f, node->left, arr, index);
+  preorder(f, node->right, arr, index);
 }
 
 
@@ -359,14 +362,14 @@ int BinaryTree<T>::leaf_count(BTNode<T>* node) const {
 // It recursively goes through all the left tree nodes and then the right tree nodes. 
 
 template<class T>
-void BinaryTree<T>::postorder(void (*f)(const T&), BTNode<T>* node) const {
+void BinaryTree<T>::postorder( void (*f)(const T&, T*, T&), BTNode<T> *node, T arr[], T & index ){
     if (node == NULL)
         return;
-    postorder(f, node->left);
-    postorder(f, node->right);
+    postorder(f, node->left, arr, index);
+    postorder(f, node->right, arr, index);
 
 // Function f gets the value of the node. 
-    f(node->elem);
+    f(node->elem, arr, index);
 }
 
 
@@ -479,14 +482,14 @@ BTNode<T>* BinaryTree<T>::clone(BTNode<T>* node) {
 // The in order function place the node in order from left to right and apply the element to the node. 
 
 template <typename T>
-void BinaryTree<T>::inorder(void (*func)(const T&), BTNode<T>* node) const {
+void BinaryTree<T>::inorder( void (*f)(const T&, T*, T&), BTNode<T> *node, T arr[], T & index ){
     if (node == nullptr) {
         return;
     }
 
-    inorder(func, node->left);
-    func(node->elem);
-    inorder(func, node->right);
+    inorder(f, node->left, arr, index);
+    f(node->elem, arr, index);
+    inorder(f, node->right, arr, index);
 }
 
 
@@ -567,11 +570,15 @@ BTNode<T>* BinaryTree<T>::delete_node(struct BTNode<T>* root, int key){
   if (root == nullptr)
     return nullptr;
 
+
+
   if (root->left == nullptr && root->right == nullptr){
     if (root->elem == key){
+
       return nullptr;
     }
     else {
+
       return root;
     }
   }
@@ -592,16 +599,20 @@ BTNode<T>* BinaryTree<T>::delete_node(struct BTNode<T>* root, int key){
   while (!nodes.empty()) {
     tmp = nodes.front();
     nodes.pop();
+
+
     if (tmp->elem == key){
       target_node = tmp;
     }
 
     if (tmp->left){
       nodes.push(tmp->left);
+
     }
 
     if (tmp->right){
       nodes.push(tmp->right);
+
     }
   }
 
@@ -611,11 +622,27 @@ BTNode<T>* BinaryTree<T>::delete_node(struct BTNode<T>* root, int key){
 // the value of the node we wanted to delete with the last node. 
 // We basically swapped the last node with the node we want to be deleted, and then deleted it. 
 
+    if (target_node == nullptr){
+        cout << "Node doesn't exist!" << endl;
+        return root;
+    }
+
+
+    if (target_node == tmp) {
+      delete_last_node(root, target_node);
+      delete_last_node(root, tmp);
+      return root;
+    }
+
+
+
     if (target_node != nullptr) {
       int last_node = tmp->elem;
       delete_last_node(root, tmp);
       target_node->elem = last_node;
     }
+
+
 
   return root;
 
@@ -645,8 +672,11 @@ void BinaryTree<T>::delete_last_node(BTNode<T>* root, BTNode<T>* deleting_node) 
         tmp = nodes.front();
         nodes.pop();
 
+
+
         if (tmp == deleting_node) {
             delete deleting_node;  
+
             return;
         }
 
@@ -656,11 +686,13 @@ void BinaryTree<T>::delete_last_node(BTNode<T>* root, BTNode<T>* deleting_node) 
             if (tmp->right == deleting_node) {
                 tmp->right = nullptr;
                 delete deleting_node;  
+
                 return;
             } 
 
             else {
                 nodes.push(tmp->right);
+
             }
         }
 
@@ -668,12 +700,14 @@ void BinaryTree<T>::delete_last_node(BTNode<T>* root, BTNode<T>* deleting_node) 
         if (tmp->left) {
             if (tmp->left == deleting_node) {
                 tmp->left = nullptr;
-                delete deleting_node;  
+                delete deleting_node;
+  
                 return;
             } 
 
             else {
                 nodes.push(tmp->left);
+
             }
         }
     }

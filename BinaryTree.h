@@ -1,3 +1,6 @@
+// Xianqi Cao U83561269 -- Code
+// Matthew Keen U44822882 -- Report
+
 #ifndef __BinaryTree_H
 #define __BinaryTree_H
 
@@ -83,10 +86,16 @@ class BinaryTree {
   int to_flat_array( T* elements, int max ) const; // 1
   
   /* Traversal */
-  void preorder( void (*f)(const T&) )  const { return preorder(f, root); }  // 1
+  void preorder( void (*f)(const T&) )  const { return preorder(f, root); }
   void inorder( void (*f)(const T&) )   const { return inorder(f, root); }
   void postorder( void (*f)(const T&) ) const { return postorder(f, root); }
                
+  void preorder( void (*f)(const T&, T[], T&), T arr[], T & index   )  { return preorder(f, root, arr, index); }
+  void inorder( void (*f)(const T&, T[], T&), T arr[], T & index  )   { return inorder(f, root, arr, index); }
+  void postorder( void (*f)(const T&, T[], T&), T arr[], T & index  )  { return postorder(f, root, arr, index); }
+
+
+
   /* Operators */
   bool operator==( const BinaryTree& src ) const;
   bool operator!=( const BinaryTree& src ) const;
@@ -107,10 +116,14 @@ class BinaryTree {
   bool compare(BTNode<T>* node1, BTNode<T>* node2) const;
 
 
+
+  void preorder( void (*f)(const T&, T*, T&), BTNode<T> *node, T arr[], T & index ) ;
+  void inorder( void (*f)(const T&, T*, T&), BTNode<T> *node, T arr[], T & index ) ;
+  void postorder( void (*f)(const T&, T*, T&), BTNode<T> *node, T arr[], T & index );
+
   void preorder( void (*f)(const T&), BTNode<T> *node ) const;
   void inorder( void (*f)(const T&), BTNode<T> *node ) const;
   void postorder( void (*f)(const T&), BTNode<T> *node ) const;
-
 
 
 
