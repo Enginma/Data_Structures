@@ -288,7 +288,7 @@ void BinaryTree<T>::display( PDF *pdf, const string& annotation ) const
   pdf->setlinewidth(scale);
 
   // run the "helper"
-  display(pdf, root, h - 1, x, y, scale);
+  display(pdf, get_root(), h - 1, x, y, scale);
 }
 
 template<class T>
@@ -439,6 +439,8 @@ int BinaryTree<T>::height(BTNode<T>* node) const {
 
 template <class T>
 BTNode<T>* BinaryTree<T>::get_root() const {
+
+
     return root;
 }
 
@@ -574,11 +576,9 @@ BTNode<T>* BinaryTree<T>::delete_node(struct BTNode<T>* root, int key){
 
   if (root->left == nullptr && root->right == nullptr){
     if (root->elem == key){
-
       return nullptr;
     }
     else {
-
       return root;
     }
   }
@@ -621,11 +621,6 @@ BTNode<T>* BinaryTree<T>::delete_node(struct BTNode<T>* root, int key){
 // the tmp's value. We then just straight up delete the last node with the delete_last_node function declared below, then we replace
 // the value of the node we wanted to delete with the last node. 
 // We basically swapped the last node with the node we want to be deleted, and then deleted it. 
-
-    if (target_node == nullptr){
-        cout << "Node doesn't exist!" << endl;
-        return root;
-    }
 
 
     if (target_node == tmp) {

@@ -47,15 +47,22 @@ int main() {
     int array[500];
     int index = 1;
 
-    BinaryTree<int> tmp;
+    bool emptyTree = 1;
 
+    BinaryTree<int> tmp;
     // Construct a PDF object to write the tree output
     PDF *pdf = new PDF("trees.pdf");
     
 
+
+
+
     // This is from test.cc file as well, it creates the base of the tree for later add/delete functions. 
     // Create a new binary tree, having 'n' elements
-    int n = 12;  // <-- try changing the value of 'n'
+
+    // *************************************************************************************
+
+    int n = 0;  // <-- try changing the value of 'n', right now its 12 nodes to start with but you can change it however you like!. 
     BinaryTree<int> tree(elements, n);
 
 
@@ -90,16 +97,16 @@ int main() {
         }
         int index = 1;
 
+
 // If the choice is equal to 1, we ask the user for a value to insert to the tree and we implement n by 1 for the pdf file's
 // message and we display a new tree on the pdf file. 
 
         if (choice == 1) {
+
             cout << "Enter the value to insert: ";
             cin >> value;
             tree.insert_node(value);
             cout << "Node inserted!" << endl;
-
-
             n++;
             ostringstream ostring;
             ostring << "Complete tree having " << n << " nodes (Insert)";
@@ -115,8 +122,6 @@ int main() {
             cout << "Enter the value to delete: ";
             cin >> value;
             tree.delete_node(tree.get_root(), value);
-
-
             n--;
             if (n < 0){
 
