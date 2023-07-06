@@ -29,20 +29,6 @@ void quicksort( vector<Comparable> & a, int left, int right, int depth )
         insertionSort( a, left, right );
 }
 
-//6.26
-/*
-                                      2
-                                     / \
-                                    4   11
-                                   / \  /\
-                                  5  9 12 17
-                                 /\  /\   /
-                                6 8 18 10 18
-                               / /  /
-                             11 15 31
-                             /
-                            21
-*/
 //d
 template <typename Comparable>
 void quicksort(vector<Comparable> & a, int left, int right, int depth )
