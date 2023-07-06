@@ -93,10 +93,4 @@ void quicksort(vector<Comparable> & a, int left, int right )
       }
 }
 
-//part c 6.22
-/*
-*  Since time is determined by the length of the right paths the best leftist heap input
-*    would be just a single root like 3. Or if it was a maxheap, for example, the input
-*    would be each element being smaller than the last so only left paths are taken.
-*    i.e. 3 2 1
-*/
+//part c 6.12
