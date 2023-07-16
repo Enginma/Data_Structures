@@ -38,13 +38,19 @@ int height( int set, vector<int> & a )
 //finds an element and returns what set it is in
 int find( int element, vector<int> & a )
 {
-  int i = a.at( element );
-  if( i == a[i] )
-    return i;
+  int f = -2;
+  if( a[element] == 0 )
+  {
+    return f;
+  }
+  else if( element == a[element] )
+  {
+    return element;
+  }
   else
   {
-    a[i] = find( a[i], a );
-      return a[i];
+    a[element] = find( a[element], a );
+      return a[element];
   }
 };
 
@@ -57,7 +63,10 @@ void unionSet( int set1, int set2, vector<int> & a )
     return;
   }
   else
+  {
     a[set1] = set2;
+    return;
+  }
 };
 
 //makes a new set hashed to give the int input its equivalent index number
