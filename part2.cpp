@@ -33,23 +33,47 @@ int main()
       switch (choice)
         {
           case 1: 
-            cout << "Enter new element" << endl;
+            cout << "Enter new element greater than 0" << endl;
             cin >> element;
-            makeset( element, a );
-            cout << "Operation complete" << endl;
-            break;
+            if( element > 0)
+            {
+              makeset( element, a );
+              cout << "Operation complete" << endl;
+              break;
+            }
+            else
+            {
+              cout << "Please enter an element greater than 0" << endl;
+              break;
+            }
           case 2:
             cout << "Enter element to be found" << endl;
             cin >> element;
-            cout << "Your element is in set:" << find( element, a ) << endl;
-            break;
+            if( element < 0 || element >= a.size() || find( element, a ) == -2 )
+            {
+              cout << "Entered element is not found" << endl;
+              break;
+            }
+            else
+            {
+              cout << "Your element is in set: " << find( element, a ) << endl;
+              break;
+            }
           case 3:
             cout << "Enter two sets to be unioned. Please press enter after each set" << endl;
             cin >> set1;
-            cin >> set2;
-            unionSet( set1, set2, a );
-            cout << "Operation complete" << endl;
-            break;
+            cin >> set2;            
+            if( set1 < 0 || set1 >= a.size() || a[set1] == 0 || set2 < 0 || set2 >= a.size() || a[set2] == 0)
+            {
+              cout << "Entered set is not found" << endl;
+              break;
+            }
+            else
+            {
+              unionSet( set1, set2, a );
+              cout << "Operation complete" << endl;
+              break;
+            }
           case 4:
             cout << "Thanks for using our program!" << endl;
             break;
